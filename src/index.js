@@ -3,11 +3,43 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from "react-redux";
+import appStore from "./utils/store";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Body from './Components/Body';
+import WatchPage from './Components/WatchPage';
+import MainContainer from './Components/MainContainer';
 
+const Routes = createBrowserRouter([
+ {
+  path : "/",
+  element : <App/>,
+  children :[
+    {
+      path : "/",
+      element : <Body/>,
+      children:[
+        {
+          path:"/",
+          element:<MainContainer/>
+        },
+        {
+          path :"watch",
+          element : <WatchPage/>
+        }
+      ]
+
+    },
+   
+  ]
+ }
+])
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+     <Provider store={appStore}>
+       <RouterProvider router={Routes}/>
+    </Provider>
   </React.StrictMode>
 );
 
