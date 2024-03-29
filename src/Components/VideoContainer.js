@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  YOUTUBE_SEARCH_SUGGESTIONS_API,
-  YOUTUBE_VIDEOS_URL,
-} from "../utils/constant";
+ import { YOUTUBE_VIDEOS_URL } from "../utils/constant";
 import VideoCard from "./VIdeoCard";
 import { Link } from "react-router-dom";
 import { Shimmer } from "./Shimmer";
@@ -15,12 +12,10 @@ const VideoContainer = () => {
   }, []);
 
   const getVideos = async () => {
-    const data = await fetch(YOUTUBE_VIDEOS_URL);
+    const data = await fetch(YOUTUBE_VIDEOS_URL+process.env.REACT_APP_GOOGLE_API_KEY);
     const json = await data.json();
     setVideos(json.items);
   };
-
-  // console.log(YOUTUBE_SEARCH_SUGGESTIONS_API)
 
   return videos === "" ? (
     <Shimmer />
